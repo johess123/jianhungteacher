@@ -31,7 +31,7 @@ def main():
     i = 4
     while i < len(allStock)-1:
         thisStockid = allStock[i]
-        thisStockprice = allStock[i+3]
+        thisStockprice = float(allStock[i+3])*100 # 因精準度問題,所以存的價格*100,需取出計算時再除以100
         sql = "select * from allstock where stockid = %s;" # 檢查這支股票有沒有在股票名稱table裡
         cur.execute(sql,(thisStockid,))
         record = cur.fetchall()
