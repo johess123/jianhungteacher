@@ -39,7 +39,7 @@ def main():
         cur.execute(sql,(thisStockid,date))
         record1 = cur.fetchall()
         if len(record) != 0 and len(record1) == 0:
-            print(thisStockid,thisStockprice)
+            #print(thisStockid,thisStockprice)
             sql = "INSERT INTO allprice(stockid,date,stockprice) values (%s,%s,%s);"
             cur.execute(sql,(thisStockid,date,thisStockprice))
         i += 16
