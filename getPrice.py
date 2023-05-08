@@ -5,6 +5,7 @@ import datetime
 # 爬取所有股票當日收盤價
 
 def main():
+    print("開始寫入各股收盤價...")
     # 當天日期
     nowTime = datetime.datetime.now()
     nowTime1 = nowTime.strftime("%Y/%m/%d %H:%M:%S")
@@ -12,8 +13,7 @@ def main():
     # 爬股價
     headers = {
         'content-type': 'text/html; charset=UTF-8',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\
-        (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
+        'user-agent': 'Chrome/76.0.3809.132'
     }
     url = "https://histock.tw/stock/rank.aspx?p=all"
     # 重複抓直到成功
@@ -44,5 +44,6 @@ def main():
             cur.execute(sql,(thisStockid,date,thisStockprice))
         i += 16
     conn.commit()
+    print("各股收盤價寫入完成!")
 
 main()
