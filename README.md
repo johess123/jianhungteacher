@@ -20,5 +20,5 @@ ubuntu crontab 設定每周一到五晚上6點爬取
 
 allstock # 記錄所有股票代號、名稱,PK股票代號<br>
 allprice # 存所有股價,PK流水號,FK股票代號<br>
-balancesheet # 資產負債表(金額)<br>
-balancesheetpct # 資產負債表(百分比)
+balancesheet # 資產負債表(金額),PK流水號,FK股票代號<br>
+balancesheetpct # 資產負債表(百分比),PK流水號,FK股票代號
