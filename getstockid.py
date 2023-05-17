@@ -1,11 +1,27 @@
-import csv
+import requests
 from dbConfig import conn,cur
+import datetime
 
-# 寫入全部股票代號,名稱
-with open('MI_INDEX_ALL_20230517.csv', newline='') as csvfile:
-    rows = list(csv.reader(csvfile))
-    for i in range(271,len(rows)-6):
-        #print(rows[i][0].replace('"',"").replace("=",""),rows[i][1],rows[i][8])
-        sql = "INSERT INTO allstock(stockid,stockname) values (%s,%s);"
-        cur.execute(sql,(rows[i][0].replace('"',"").replace("=",""),rows[i][1]))
-    conn.commit()
+def main():
+    date = datetime.datetime.now().strftime("%Y%m%d")
+    while True:
+        # 重複爬取直到成功
+        try:
+            url = "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date="+date+"&type=ALL&response=csv"
+            file = requests.get(url).text.split("\n")
+            break
+        except:
+            pass
+    if file != ['']:
+        for i in range(271,len(file)-7):
+            stock = file[i].split('","')
+            if stock[8] != "--":
+                #print(stock[0].replace("=","").replace('"',""),stock[1],stock[8].replace(",",""))
+                sql = "INSERT INTO allstock(stockid,stockname) values (%s,%s);"
+                cur.execute(sql,(stock[0].replace("=","").replace('"',""),stock[1]))
+        conn.commit()
+        print("寫入完成!")
+    else:
+        print("今日沒有開盤")
+
+main()

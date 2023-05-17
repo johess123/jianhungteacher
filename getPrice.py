@@ -1,4 +1,3 @@
-import csv
 import requests
 from dbConfig import conn,cur
 import datetime
